@@ -56,7 +56,6 @@ const displayCategories = (categories) => {
   <div style="background: white; border-radius: 20px; padding: 30px; max-width: 500px; max-height: 50%; width: 100%;overflow-y:scroll;">
   <h2>My Categories</h2>
   ${buildCategories(categories)}
-      <button id="populate-template">fill template</button>
       <div id="template-content"></div>
     </div>
   </div>`;
@@ -75,6 +74,7 @@ const displayCategories = (categories) => {
         event.currentTarget.querySelector(".template-body").innerText;
 
       navigator.clipboard.writeText(templateBody);
+
       document.querySelector("#template-extension-popup").remove();
     });
   });
