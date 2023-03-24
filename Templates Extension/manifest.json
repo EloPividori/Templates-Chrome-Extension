@@ -4,9 +4,7 @@
   "description": "Access your templates anywhere",
   "version": "1.0",
   "permissions": ["scripting", "activeTab", "cookies", "tabs"],
-  "host_permissions": [
-    "*://*/*"
-  ],
+  "host_permissions": ["*://*/*"],
 
   "action": {
     "default_popup": "hello.html",
@@ -38,9 +36,7 @@
   "content_scripts": [
     {
       "js": ["scripts/content.js"],
-      "matches": [
-        "*://*/*"
-      ]
+      "matches": ["*://*/*"]
     }
   ]
 }
