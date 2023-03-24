@@ -22,7 +22,7 @@ const displayCategories = (categories) => {
     let templatesHtml = "";
 
     category.templates.forEach((template) => {
-      templatesHtml += `<li class="template" style="background-color: "lightgrey"; border-radius: 5px; padding: 5px; margin-bottom: 5px;">${template["title"]}<div class="template-body" style="display: none;">${template["content"]["body"]}</div></li>`;
+      templatesHtml += `<li class="template" style="background-color: "lightgrey"; border-radius: 5px; padding: 5px; margin-bottom: 5px;"><p style="cursor: pointer">${template["title"]}</p><div class="template-body" style="display: none;">${template["content"]["body"]}</div></li>`;
       // templateContent(template, i);
     });
     return categoriesHtml + templatesHtml + "</ul>";
@@ -73,7 +73,9 @@ const displayCategories = (categories) => {
       const templateBody =
         event.currentTarget.querySelector(".template-body").innerText;
 
-      navigator.clipboard.writeText(templateBody);
+      navigator.clipboard.writeText(templateBody).then(() => {
+        alert("Copied to clipboard");
+      });
 
       document.querySelector("#template-extension-popup").remove();
     });
