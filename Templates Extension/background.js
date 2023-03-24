@@ -37,7 +37,7 @@
 
 let authToken;
 let categories = [];
-const baseURL = "http://localhost:3000/";
+const baseURL = "http://www.templates-extension.com/";
 
 // const getCategories = () => {
 //   fetch(`${baseURL}api/v1/categories`, {

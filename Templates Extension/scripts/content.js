@@ -18,13 +18,31 @@ const displayLogin = () => {
 
 const displayCategories = (categories) => {
   const buildCategory = (category) => {
-    let categoriesHtml = `<div style="border: 1px solid black; padding: 5px; margin-bottom: 5px;">${category.title}`;
+    let categoriesHtml = `<ul style="padding: 5px; margin-bottom: 5px;"><strong>${category.title}</strong>`;
     let templatesHtml = "";
+
     category.templates.forEach((template) => {
-      templatesHtml += `<div class="template" style="border: 1px solid black; padding: 5px; margin-bottom: 5px;">${template["title"]}</div>`;
+      templatesHtml += `<li class="template" style="background-color: "lightgrey"; border-radius: 5px; padding: 5px; margin-bottom: 5px;">${template["title"]}<div class="template-body" style="display: none;">${template["content"]["body"]}</div></li>`;
+      // templateContent(template, i);
     });
-    return categoriesHtml + templatesHtml + "</div>";
+    return categoriesHtml + templatesHtml + "</ul>";
   };
+
+  // const templateContent = (currentTemplate, i) => {
+  //   // avigator.clipboard.writeText(event.currentTarget.textContent tem.content.body)
+  //   console.log(currentTemplate.content.body);
+  //   console.log(i);
+  //   // document.querySelectorAll(".template").forEach((templateCard) => {
+  //   const className = `.template${i}`;
+  //   console.log(className);
+  //   templateCard = document.querySelector(className);
+  //   templateCard.addEventListener("click", (event) => {
+  //     // add to clipboard
+  //     console.log(event.currentTarget.content);
+  //     navigator.clipboard.writeText(currentTemplate.content.body);
+  //     document.querySelector("#template-extension-popup").remove();
+  //   });
+  // };
 
   const buildCategories = (cats) => {
     let catsHTML = "";
@@ -43,11 +61,20 @@ const displayCategories = (categories) => {
     </div>
   </div>`;
   document.body.insertAdjacentHTML("beforeend", html);
+  // let b = 0;
+  // categories.forEach((category) => {
+  //   category.templates.forEach((template) => {
+  //     b++;
+  //     templateContent(template, b);
+  //   });
+  // });
   document.querySelectorAll(".template").forEach((templateCard) => {
     templateCard.addEventListener("click", (event) => {
       // add to clipboard
-      debugger;
-      navigator.clipboard.writeText(event.currentTarget.textContent);
+      const templateBody =
+        event.currentTarget.querySelector(".template-body").innerText;
+
+      navigator.clipboard.writeText(templateBody);
       document.querySelector("#template-extension-popup").remove();
     });
   });
