@@ -30,7 +30,6 @@ const baseURL = "http://www.templates-extension.com/";
 //   }
 // });
 
-
 chrome.commands.onCommand.addListener((command) => {
   console.log(`Command: ${command}`);
 
@@ -43,18 +42,42 @@ chrome.commands.onCommand.addListener((command) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, {
-              message: "successfulFetch",
-              content: data
-            })
-          })
-        })
-    }
-    else {
+          chrome.tabs.query(
+            { active: true, currentWindow: true },
+            function (tabs) {
+              chrome.tabs.sendMessage(tabs[0].id, {
+                message: "successfulFetch",
+                content: data,
+              });
+            }
+          );
+        });
+    } else {
       chrome.tabs.sendMessage(tab.id, {
-        message: "noCookie"
-      })
+        message: "noCookie",
+      });
     }
-  })
-})
+  });
+});
+// browser.runtime.connect(console.log("tabs tabs"));
+
+// chrome.tabs.onUpdated.addListener((tabId, tab) => {
+//   console.log("tabs tabs");
+//   chrome.tabs.sendMessage(tabId, {
+//     type: "NEW",
+//     videoId: urlParameters.get("v"),
+//   });
+// });
+// browser.windows.onCreated.addListener(console.log("tabs tabs"));
+// chrome.windows.onCreated.addListener(console.log("tabs tabs"));
+// browser.tabs.onUpdated.addListener(console.log("tabs tabs"));
+// browser.tabs.onCreated.addListener(console.log("tabs tabs"));
+// chrome.tabs.onUpdated.addListener(console.log("tabs tabs"));
+// chrome.tabs.onCreated.addListener(console.log("tabs tabs"));
+// browser.tabs.onUpdated.addListener((tabId, tab) => {
+//   console.log("tabs tabs");
+//   chrome.tabs.sendMessage(tabId, {
+//     type: "NEW",
+//     videoId: urlParameters.get("v"),
+//   });
+// });

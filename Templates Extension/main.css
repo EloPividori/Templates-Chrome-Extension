@@ -1,0 +1,56 @@
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.category:hover .template {
+  visibility: visible;
+  opacity: 1;
+  font-size: 14px !important;
+}
+
+.category:hover p {
+  margin: 16px 16px 0px 16px !important;
+}
+
+.category {
+  padding: 8px !important;
+}
+
+.category li {
+  list-style-type: none;
+}
+
+.category p {
+  margin: 0px !important;
+}
+
+.template {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+  font-size: 0px !important;
+}
+
+.tooltip {
+  position: relative;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  display: inline-block;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
