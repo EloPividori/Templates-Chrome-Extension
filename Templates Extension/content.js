@@ -11,10 +11,9 @@
 //   console.log(document.querySelectorAll(`.${targetForm}`)[1].value);
 //   // console.log(document.querySelectorAll(`.${targetForm}`)[1].target.value);
 // });
-
 const displayLogin = () => {
   const html = `<div id="template-extension-popup" style="z-index:9999; background: rgba(0,0,0,0.3); position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-  <div style="background: white; border-radius: 20px; padding: 30px; max-width: 500px; width: 100%;">
+  <div style="background: white; border-radius: 20px; padding: 30px; width: 500px;;">
   <a href='http://templates-extension/users/sign_in' target="_blank">Sign in</a>
   </div>
   </div>`;
@@ -22,13 +21,18 @@ const displayLogin = () => {
 };
 
 const displayCategories = (categories) => {
+  let i = 0;
   // const realForm = document.querySelectorAll(`.${targetForm}`)[1];
   const buildCategory = (category) => {
-    let categoriesHtml = `<ul class="category" style="padding: 5px; margin-bottom: 5px;"><strong>${category.title}</strong>`;
+    let categoriesHtml = `<ul class="category" style="padding: 5px; margin-bottom: 5px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder2" viewBox="0 0 16 16">
+    <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v7a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5v-9zM2.5 3a.5.5 0 0 0-.5.5V6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5zM14 7H2v5.5a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V7z"/>
+  </svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder2-open" viewBox="0 0 16 16">
+  <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v.64c.57.265.94.876.856 1.546l-.64 5.124A2.5 2.5 0 0 1 12.733 15H3.266a2.5 2.5 0 0 1-2.481-2.19l-.64-5.124A1.5 1.5 0 0 1 1 6.14V3.5zM2 6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5a.5.5 0 0 0-.5.5V6zm-.367 1a.5.5 0 0 0-.496.562l.64 5.124A1.5 1.5 0 0 0 3.266 14h9.468a1.5 1.5 0 0 0 1.489-1.314l.64-5.124A.5.5 0 0 0 14.367 7H1.633z"/>
+</svg></i><strong>${category.title}</strong>`;
     let templatesHtml = "";
-
     category.templates.forEach((template) => {
-      templatesHtml += `<li class="template tooltip" style="background-color: "lightgrey"; border-radius: 5px; padding: 5px; margin-bottom: 5px;"><p style="cursor: pointer">${template["title"]}<span class="tooltiptext">Tooltip text${template["content"]["body"]}</span></p> <div class="template-body" style="display: none;">${template["content"]["body"]}</div></li>`;
+      templatesHtml += `<li class="template template${i} tooltip" style="background-color: "lightgrey"; border-radius: 5px; padding: 5px; margin-bottom: 5px;"><p style="cursor: pointer">${template["title"]}<span class="tooltiptext scroll" data-boundary="viewport"></span></p></li>`;
+      i++;
     });
     return categoriesHtml + templatesHtml + "</ul>";
   };
@@ -42,14 +46,12 @@ const displayCategories = (categories) => {
   };
 
   const html = `<div id="template-extension-popup" style="z-index:9999;background: rgba(0,0,0,0.3); position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-  <div class="scroll" style="background: white; border-radius: 20px; padding: 30px; max-width: 500px; max-height: 50%; width: 100%;overflow-y:scroll;">
+  <div class="scroll" style="background: white; border-radius: 20px; padding: 80px; max-width: 500px; max-height: 50%; width: 100%;overflow-y:scroll;">
   <div><h2>My Categories</h2></div>
   ${buildCategories(categories)}
       <div id="template-content"></div>
     </div>
   </div>`;
-  console.log(html);
-  console.log(document.querySelectorAll("*:not(.scroll)"));
   document
     .querySelectorAll("*:not(.template, .scroll, .category )")
     .forEach((element) => {
@@ -57,20 +59,52 @@ const displayCategories = (categories) => {
         document.querySelector("#template-extension-popup").remove();
       });
     });
+
   document.body.insertAdjacentHTML("beforeend", html);
 
-  document.querySelectorAll(".template").forEach((templateCard) => {
-    templateCard.addEventListener("click", (event) => {
-      // add to clipboard
-      const templateBody =
-        event.currentTarget.querySelector(".template-body").innerText;
+  tooltiptexts = document.querySelectorAll(".tooltiptext");
+  let j = 0;
+  categories.forEach((category) => {
+    category.templates.forEach((template) => {
+      console.log(template.content.body.replaceAll("<br>", "\n"));
+      const wihtoutBr = template.content.body.replaceAll("<br>", "\n");
+      const regex = /(<([^>]+)>)/gi;
+      const templateBody = wihtoutBr.replaceAll(regex, "");
 
-      navigator.clipboard.writeText(templateBody);
-      // realForm.value = templateBody;
-      document.querySelector("#template-extension-popup").remove();
-      document.querySelector("body").insertAdjacentHTML = copiedContentBadge;
+      document
+        .querySelector(`.template${j}`)
+        .addEventListener("click", (event) => {
+          navigator.clipboard.writeText(templateBody);
+          // realForm.value = templateBody;
+          document.querySelector("#template-extension-popup").remove();
+        });
+
+      tooltiptexts[j].innerHTML = template["content"]["body"];
+      j++;
     });
   });
+  // document.querySelectorAll(".tooltiptext").forEach((tooltiptext) => {
+  //   console.log(tooltiptext.innerText);
+  //   console.log(tooltiptext.innerHTML);
+
+  //   tooltiptext.innerText = tooltiptext.innerText;
+  // });
+
+  // document.querySelectorAll(".template").forEach((templateCard) => {
+  //   templateCard.addEventListener("click", (event) => {
+  //     // add to clipboard
+  //     const regex = /(<([^>]+)>)/gi;
+  //     const wihtoutBr = event.currentTarget
+  //       .querySelector(".template-body")
+  //       .innerHTML.replaceAll("<br>", "\n");
+  //     const templateBody = wihtoutBr.replaceAll(regex, "");
+
+  //     navigator.clipboard.writeText(templateBody);
+  //     // realForm.value = templateBody;
+  //     document.querySelector("#template-extension-popup").remove();
+  //     document.querySelector("body").insertAdjacentHTML = copiedContentBadge;
+  //   });
+  // });
 };
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {

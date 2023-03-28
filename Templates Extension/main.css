@@ -1,6 +1,9 @@
 .scroll::-webkit-scrollbar {
   display: none;
 }
+.scroll {
+  box-sizing: content-box !important;
+}
 
 .category:hover .template {
   visibility: visible;
@@ -24,6 +27,10 @@
   margin: 0px !important;
 }
 
+.category strong {
+  padding-left: 8px !important;
+}
+
 .template {
   visibility: hidden;
   opacity: 0;
@@ -38,12 +45,12 @@
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 120px;
-  background-color: black;
+  background-color: #604fb2;
   color: #fff;
   text-align: center;
   border-radius: 6px;
-  padding: 5px 0;
+  max-height: 56px;
+  overflow-y: scroll;
 
   /* Position the tooltip */
   position: absolute;
@@ -53,4 +60,25 @@
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+  width: 300px;
+  padding: 15px;
+  margin-left: 17px;
 }
+
+.bi-folder2-open {
+  display: none;
+}
+
+.category:hover .bi-folder2-open {
+  display: inline;
+}
+
+.category:hover .bi-folder2 {
+  display: none;
+}
+
+/* *,
+::after,
+::before {
+  box-sizing: inherit !important;
+} */
