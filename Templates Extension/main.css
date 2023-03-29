@@ -6,6 +6,10 @@
   font-weight: 500;
 }
 
+.h2-margin {
+  margin: 0 !important;
+}
+
 .category:hover .template {
   visibility: visible;
   opacity: 1;
@@ -76,11 +80,11 @@
 }
 
 .bi-folder2-open {
-  display: none;
+  display: none !important;
 }
 
 .category:hover .bi-folder2-open {
-  display: inline;
+  display: inline !important;
 }
 
 .category:hover .bi-folder2 {

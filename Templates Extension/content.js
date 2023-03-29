@@ -47,7 +47,7 @@ const displayCategories = (categories) => {
 
   const html = `<div id="template-extension-popup" style="z-index:9999;background: rgba(0,0,0,0.3); position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
   <div class="scroll" style="font-family: sans-serif; border: 2rem solid whitesmoke; box-shadow: 0px 0px 10px #3c3333; background: white; border-radius: 20px; padding: 80px; max-width: 500px; max-height: 50%; width: 100%;overflow-y:scroll;">
-  <div style="margin-bottom: 32px;"><h2>My Categories</h2></div>
+  <div style="margin-bottom: 32px;"><h2 class="h2-margin">My Categories</h2></div>
   ${buildCategories(categories)}
       <div id="template-content"></div>
     </div>
