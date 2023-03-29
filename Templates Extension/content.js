@@ -31,7 +31,7 @@ const displayCategories = (categories) => {
 </svg></i><strong>${category.title}</strong>`;
     let templatesHtml = "";
     category.templates.forEach((template) => {
-      templatesHtml += `<li class="template template${i} tooltip" style="background-color: "lightgrey"; border-radius: 5px; padding: 5px; margin-bottom: 5px;"><p style="cursor: pointer">${template["title"]}<span class="tooltiptext scroll" data-boundary="viewport"></span></p></li>`;
+      templatesHtml += `<li class="template template${i} tooltip2" style="background-color: "lightgrey"; border-radius: 5px; padding: 5px; margin-bottom: 5px;"><p style="cursor: pointer">${template["title"]}<span class="tooltip2text scroll" data-boundary="viewport"></span></p></li>`;
       i++;
     });
     return categoriesHtml + templatesHtml + "</ul>";
@@ -46,8 +46,8 @@ const displayCategories = (categories) => {
   };
 
   const html = `<div id="template-extension-popup" style="z-index:9999;background: rgba(0,0,0,0.3); position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-  <div class="scroll" style="background: white; border-radius: 20px; padding: 80px; max-width: 500px; max-height: 50%; width: 100%;overflow-y:scroll;">
-  <div><h2>My Categories</h2></div>
+  <div class="scroll" style="font-family: sans-serif; border: 2rem solid whitesmoke; box-shadow: 0px 0px 10px #3c3333; background: white; border-radius: 20px; padding: 80px; max-width: 500px; max-height: 50%; width: 100%;overflow-y:scroll;">
+  <div style="margin-bottom: 32px;"><h2>My Categories</h2></div>
   ${buildCategories(categories)}
       <div id="template-content"></div>
     </div>
@@ -62,7 +62,7 @@ const displayCategories = (categories) => {
 
   document.body.insertAdjacentHTML("beforeend", html);
 
-  tooltiptexts = document.querySelectorAll(".tooltiptext");
+  tooltip2texts = document.querySelectorAll(".tooltip2text");
   let j = 0;
   categories.forEach((category) => {
     category.templates.forEach((template) => {
@@ -79,15 +79,15 @@ const displayCategories = (categories) => {
           document.querySelector("#template-extension-popup").remove();
         });
 
-      tooltiptexts[j].innerHTML = template["content"]["body"];
+      tooltip2texts[j].innerHTML = template["content"]["body"];
       j++;
     });
   });
-  // document.querySelectorAll(".tooltiptext").forEach((tooltiptext) => {
-  //   console.log(tooltiptext.innerText);
-  //   console.log(tooltiptext.innerHTML);
+  // document.querySelectorAll(".tooltip2text").forEach((tooltip2text) => {
+  //   console.log(tooltip2text.innerText);
+  //   console.log(tooltip2text.innerHTML);
 
-  //   tooltiptext.innerText = tooltiptext.innerText;
+  //   tooltip2text.innerText = tooltip2text.innerText;
   // });
 
   // document.querySelectorAll(".template").forEach((templateCard) => {
