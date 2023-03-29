@@ -46,8 +46,8 @@ const displayCategories = (categories) => {
   };
 
   const html = `<div id="template-extension-popup" style="z-index:9999;background: rgba(0,0,0,0.3); position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-  <div class="scroll" style="font-family: sans-serif; border: 2rem solid whitesmoke; box-shadow: 0px 0px 10px #3c3333; background: white; border-radius: 20px; padding: 100px; max-width: 700px; max-height: 50%; width: 100%;overflow-y:scroll;">
-  <div style="margin-bottom: 32px; display: none;"><img src="te-logo-bg-prpl.png" style="height: 30px; width: 30px;"><h2 class="h2-margin h2-size">My Categories</h2></div>
+  <div class="scroll" style="font-family: sans-serif; border: 2rem solid whitesmoke; box-shadow: 0px 0px 10px #3c3333; background: white; border-radius: 20px; padding: 100px; padding-top: 30px; max-width: 700px; max-height: 50%; width: 100%;overflow-y:scroll;">
+  <div style="margin-bottom: 32px; text-align: center"><img src="https://www.templates-extension.com/assets/te-logo-main-a1884bf37dbf02714f9894c7ae81001749875b4a16f7058cd543d1cf6b6c0d1d.png" style="height: 130px;"><h2 class="h2-margin h2-size">My Categories</h2></div>
   ${buildCategories(categories)}
       <div id="template-content"></div>
     </div>
