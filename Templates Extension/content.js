@@ -66,18 +66,20 @@ const displayCategories = (categories) => {
   let j = 0;
   categories.forEach((category) => {
     category.templates.forEach((template) => {
-      console.log(template.content.body.replaceAll("<br>", "\n"));
-      const wihtoutBr = template.content.body.replaceAll("<br>", "\n");
-      const regex = /(<([^>]+)>)/gi;
-      const templateBody = wihtoutBr.replaceAll(regex, "");
+      // console.log(template.content.body.replaceAll("<br>", "\n"));
+      // const wihtoutDivBr = template.content.body.replaceAll("<br></div>", "\n");
+      // const wihtoutDiv = wihtoutDivBr.replaceAll("</div>", "\n");
+      // const wihtoutBr = wihtoutDiv.replaceAll("<br>", "\n");
+      // const regex = /(<([^>]+)>)/gi;
+      // const templateBody = wihtoutBr.replaceAll(regex, "");
 
-      document
-        .querySelector(`.template${j}`)
-        .addEventListener("click", (event) => {
-          navigator.clipboard.writeText(templateBody);
-          // realForm.value = templateBody;
-          document.querySelector("#template-extension-popup").remove();
-        });
+      // document
+      //   .querySelector(`.template${j}`)
+      //   .addEventListener("click", (event) => {
+      //     navigator.clipboard.writeText(templateBody);
+      //     // realForm.value = templateBody;
+      //     document.querySelector("#template-extension-popup").remove();
+      //   });
 
       tooltip2texts[j].innerHTML = template["content"]["body"];
       j++;
@@ -90,26 +92,36 @@ const displayCategories = (categories) => {
   //   tooltip2text.innerText = tooltip2text.innerText;
   // });
 
-  // document.querySelectorAll(".template").forEach((templateCard) => {
-  //   templateCard.addEventListener("click", (event) => {
-  //     // add to clipboard
-  //     const regex = /(<([^>]+)>)/gi;
-  //     const wihtoutBr = event.currentTarget
-  //       .querySelector(".template-body")
-  //       .innerHTML.replaceAll("<br>", "\n");
-  //     const templateBody = wihtoutBr.replaceAll(regex, "");
+  document.querySelectorAll(".template").forEach((templateCard) => {
+    templateCard.addEventListener("click", (event) => {
+      // add to clipboard
+      // const regex = /(<([^>]+)>)/gi;
+      // const wihtoutBr = event.currentTarget
+      //   .querySelector(".template-body")
+      //   .innerHTML.replaceAll("<br>", "\n");
+      // const templateBody = wihtoutBr.replaceAll(regex, "");
+      // const templateBody =
+      //   event.currentTarget.querySelector(".template-body").innerText;
+      // navigator.clipboard.writeText(templateBody);
+      // // realForm.value = templateBody;
+      // document.querySelector("#template-extension-popup").remove();
+      // document.querySelector("body").insertAdjacentHTML = copiedContentBadge;
+      const richTextDiv = event.currentTarget.querySelector(".tooltip2text");
 
-  //     navigator.clipboard.writeText(templateBody);
-  //     // realForm.value = templateBody;
-  //     document.querySelector("#template-extension-popup").remove();
-  //     document.querySelector("body").insertAdjacentHTML = copiedContentBadge;
-  //   });
-  // });
+      const clipboardItem = new ClipboardItem({
+        "text/plain": new Blob([richTextDiv.innerText], { type: "text/plain" }),
+        "text/html": new Blob([richTextDiv.outerHTML], { type: "text/html" }),
+      });
+
+      navigator.clipboard.write([clipboardItem]);
+      document.querySelector("#template-extension-popup").remove();
+    });
+  });
 };
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  console.log(request.message);
-  console.log(request.content);
+  // console.log(request.message);
+  // console.log(request.content);
   if (request.message === "successfulFetch") {
     displayCategories(request.content);
   } else if (request.message === "noCookie") {

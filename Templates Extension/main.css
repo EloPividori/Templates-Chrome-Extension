@@ -35,6 +35,10 @@
   margin: 16px 16px 0px 16px !important;
 }
 
+.category:hover .tooltip2 {
+  border-bottom: 1px dotted black;
+}
+
 .category {
   padding: 8px !important;
 }
@@ -69,7 +73,6 @@
 
 .tooltip2 {
   position: relative !important;
-  border-bottom: 1px dotted black;
 }
 
 .tooltip2 .tooltip2text {

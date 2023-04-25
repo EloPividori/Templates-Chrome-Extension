@@ -1,4 +1,4 @@
-const baseURL = "http://www.templates-extension.com/";
+const baseURL = "https://www.templates-extension.com/";
 
 // chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 //   console.log(sender.tab);
